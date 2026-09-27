@@ -1,0 +1,2724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROYECTO GENESIS · FÍSICA I</title>
+
+<style>
+:root{
+    --bg:#03150c;
+    --bg2:#062316;
+    --panel:#082d1b;
+    --panel2:#0b3821;
+    --green:#35ff88;
+    --green2:#8dffb8;
+    --lime:#b7ff55;
+    --text:#effff5;
+    --muted:#a6c8b2;
+    --border:rgba(53,255,136,.25);
+    --shadow:0 15px 45px rgba(0,0,0,.35);
+    --danger:#ff657a;
+    --blue:#65c7ff;
+    --gold:#ffd76a;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+    color:var(--text);
+    background:
+        radial-gradient(circle at 10% 0%,rgba(53,255,136,.12),transparent 30%),
+        radial-gradient(circle at 90% 10%,rgba(183,255,85,.08),transparent 25%),
+        linear-gradient(145deg,var(--bg),#020b07 70%);
+    min-height:100vh;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    backdrop-filter:blur(16px);
+    background:rgba(3,21,12,.88);
+    border-bottom:1px solid var(--border);
+}
+
+.nav{
+    max-width:1400px;
+    margin:auto;
+    padding:14px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.logo{
+    font-weight:900;
+    letter-spacing:1px;
+    color:var(--green);
+}
+
+.logo span{
+    color:white;
+}
+
+.nav-actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+button,
+select,
+input{
+    font:inherit;
+}
+
+.btn{
+    border:1px solid var(--border);
+    background:rgba(53,255,136,.08);
+    color:var(--text);
+    padding:9px 13px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn:hover{
+    background:rgba(53,255,136,.18);
+    transform:translateY(-1px);
+}
+
+.btn.primary{
+    background:var(--green);
+    color:#03200f;
+    font-weight:800;
+}
+
+.hero{
+    max-width:1400px;
+    margin:auto;
+    padding:65px 24px 45px;
+    display:grid;
+    grid-template-columns:1.5fr .8fr;
+    gap:35px;
+    align-items:center;
+}
+
+.hero h1{
+    font-size:clamp(2.8rem,7vw,6.7rem);
+    line-height:.9;
+    margin:0 0 22px;
+    letter-spacing:-5px;
+}
+
+.hero h1 .green{
+    color:var(--green);
+    text-shadow:0 0 30px rgba(53,255,136,.3);
+}
+
+.hero p{
+    color:var(--muted);
+    font-size:1.1rem;
+    line-height:1.7;
+    max-width:800px;
+}
+
+.hero-panel{
+    background:linear-gradient(145deg,rgba(53,255,136,.14),rgba(8,45,27,.85));
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:28px;
+    box-shadow:var(--shadow);
+}
+
+.hero-panel .number{
+    font-size:4rem;
+    font-weight:900;
+    color:var(--green);
+}
+
+.badges{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:18px;
+}
+
+.badge{
+    padding:6px 10px;
+    border-radius:999px;
+    background:rgba(53,255,136,.08);
+    border:1px solid var(--border);
+    color:var(--green2);
+    font-size:.8rem;
+    font-weight:700;
+}
+
+.container{
+    max-width:1400px;
+    margin:auto;
+    padding:0 24px 70px;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.stat{
+    background:rgba(8,45,27,.7);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+}
+
+.stat small{
+    color:var(--muted);
+}
+
+.stat strong{
+    display:block;
+    font-size:2rem;
+    margin-top:6px;
+    color:var(--green);
+}
+
+.progress{
+    height:10px;
+    background:#021009;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:10px;
+}
+
+.progress div{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--green),var(--lime));
+    transition:.4s;
+}
+
+.student{
+    display:flex;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.student input{
+    flex:1;
+    min-width:180px;
+    background:#061d11;
+    color:white;
+    border:1px solid var(--border);
+    padding:12px;
+    border-radius:10px;
+    outline:none;
+}
+
+.toolbar{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:28px;
+}
+
+.toolbar input,
+.toolbar select{
+    background:#061d11;
+    color:white;
+    border:1px solid var(--border);
+    padding:11px 13px;
+    border-radius:10px;
+    outline:none;
+}
+
+.toolbar input{
+    flex:1;
+    min-width:240px;
+}
+
+.section-title{
+    margin:55px 0 20px;
+}
+
+.section-title h2{
+    font-size:2rem;
+    margin:0;
+}
+
+.section-title p{
+    color:var(--muted);
+}
+
+.week{
+    margin-bottom:30px;
+    border:1px solid var(--border);
+    border-radius:24px;
+    overflow:hidden;
+    background:linear-gradient(145deg,rgba(8,45,27,.85),rgba(3,21,12,.92));
+    box-shadow:var(--shadow);
+}
+
+.week-header{
+    padding:25px;
+    background:
+        linear-gradient(100deg,rgba(53,255,136,.12),transparent),
+        rgba(0,0,0,.15);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.week-title{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.week-number{
+    width:55px;
+    height:55px;
+    border-radius:15px;
+    display:grid;
+    place-items:center;
+    background:var(--green);
+    color:#03200f;
+    font-weight:900;
+    font-size:1.3rem;
+}
+
+.week-header h3{
+    margin:0;
+    font-size:1.4rem;
+}
+
+.week-header p{
+    margin:5px 0 0;
+    color:var(--muted);
+}
+
+.week-progress{
+    min-width:170px;
+}
+
+.week-progress span{
+    font-size:.75rem;
+    color:var(--muted);
+}
+
+.contents{
+    padding:20px 25px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.content-tag{
+    border:1px solid rgba(53,255,136,.18);
+    color:#b9e9c8;
+    padding:7px 10px;
+    border-radius:8px;
+    background:rgba(53,255,136,.035);
+    font-size:.82rem;
+}
+
+.activities{
+    padding:0 25px 25px;
+}
+
+.activity{
+    border:1px solid rgba(53,255,136,.18);
+    border-radius:18px;
+    margin-top:15px;
+    background:rgba(2,17,10,.45);
+    overflow:hidden;
+}
+
+.activity summary{
+    cursor:pointer;
+    list-style:none;
+    padding:20px;
+}
+
+.activity summary::-webkit-details-marker{
+    display:none;
+}
+
+.activity summary:hover{
+    background:rgba(53,255,136,.045);
+}
+
+.activity-top{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    align-items:flex-start;
+}
+
+.activity-type{
+    color:var(--green);
+    font-size:.75rem;
+    font-weight:900;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.activity h4{
+    margin:6px 0;
+    font-size:1.15rem;
+}
+
+.activity-short{
+    color:var(--muted);
+    line-height:1.5;
+}
+
+.xp{
+    white-space:nowrap;
+    color:var(--gold);
+    font-weight:800;
+}
+
+.activity-body{
+    padding:0 20px 22px;
+    border-top:1px solid rgba(53,255,136,.12);
+}
+
+.block{
+    margin-top:18px;
+}
+
+.block-title{
+    color:var(--green2);
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.case{
+    background:#041a0e;
+    border-left:4px solid var(--green);
+    border-radius:10px;
+    padding:17px;
+    line-height:1.7;
+    color:#dcefe3;
+}
+
+.data-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:10px;
+    margin-top:10px;
+}
+
+.data{
+    background:rgba(53,255,136,.045);
+    border:1px solid rgba(53,255,136,.13);
+    border-radius:10px;
+    padding:12px;
+}
+
+.data strong{
+    display:block;
+    color:var(--green);
+    font-size:1.05rem;
+}
+
+.tasks{
+    padding-left:20px;
+    line-height:1.8;
+}
+
+.tasks li{
+    margin-bottom:6px;
+}
+
+.evidence{
+    background:rgba(101,199,255,.07);
+    border:1px solid rgba(101,199,255,.2);
+    border-radius:12px;
+    padding:15px;
+}
+
+.criteria{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+}
+
+.criteria span{
+    padding:7px 9px;
+    border-radius:8px;
+    background:rgba(53,255,136,.06);
+    border:1px solid rgba(53,255,136,.14);
+    font-size:.8rem;
+}
+
+.sears{
+    padding:13px 15px;
+    border-radius:10px;
+    background:rgba(183,255,85,.06);
+    border:1px solid rgba(183,255,85,.18);
+    color:#dfffbf;
+}
+
+.lab{
+    margin-top:18px;
+    padding:20px;
+    border-radius:15px;
+    background:
+        linear-gradient(100deg,rgba(255,215,106,.12),rgba(255,215,106,.025));
+    border:1px solid rgba(255,215,106,.35);
+}
+
+.lab strong{
+    color:var(--gold);
+}
+
+.news{
+    border-color:rgba(101,199,255,.3);
+    background:
+        linear-gradient(145deg,rgba(101,199,255,.07),rgba(2,17,10,.5));
+}
+
+.news .activity-type{
+    color:var(--blue);
+}
+
+.newsbox{
+    border:1px solid rgba(101,199,255,.2);
+    background:rgba(101,199,255,.04);
+    border-radius:12px;
+    padding:16px;
+}
+
+.review{
+    border-color:rgba(183,255,85,.3);
+}
+
+.review .activity-type{
+    color:var(--lime);
+}
+
+.complete{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:10px;
+    margin-top:18px;
+}
+
+.complete label{
+    cursor:pointer;
+    color:var(--green2);
+    font-weight:700;
+}
+
+.complete input{
+    width:20px;
+    height:20px;
+    accent-color:var(--green);
+}
+
+.route{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+    margin-top:20px;
+}
+
+.route-item{
+    padding:13px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:rgba(53,255,136,.04);
+    text-align:center;
+}
+
+.route-item strong{
+    color:var(--green);
+}
+
+footer{
+    max-width:1400px;
+    margin:auto;
+    padding:40px 24px 70px;
+    color:var(--muted);
+    text-align:center;
+    border-top:1px solid var(--border);
+}
+
+.hidden{
+    display:none!important;
+}
+
+@media(max-width:900px){
+    .hero{
+        grid-template-columns:1fr;
+    }
+
+    .dashboard{
+        grid-template-columns:1fr;
+    }
+
+    .route{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:600px){
+    .hero h1{
+        letter-spacing:-2px;
+    }
+
+    .week-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .week-progress{
+        width:100%;
+    }
+
+    .route{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .student{
+        flex-direction:column;
+    }
+
+    .nav{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+
+@media print{
+    header,
+    .toolbar,
+    .student,
+    .dashboard,
+    .complete,
+    .nav-actions{
+        display:none!important;
+    }
+
+    body{
+        background:white;
+        color:#111;
+    }
+
+    .week{
+        break-inside:avoid;
+        box-shadow:none;
+        color:#111;
+        background:white;
+    }
+
+    .activity{
+        break-inside:avoid;
+        color:#111;
+    }
+
+    .case,
+    .data,
+    .evidence,
+    .sears{
+        color:#111;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav">
+        <div class="logo">
+            PROYECTO GENESIS <span>· FÍSICA I</span>
+        </div>
+
+        <div class="nav-actions">
+            <button class="btn" onclick="expandAll()">Expandir todo</button>
+            <button class="btn" onclick="collapseAll()">Cerrar todo</button>
+            <button class="btn" onclick="window.print()">Imprimir</button>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div>
+        <div class="badges">
+            <span class="badge">FÍSICA I</span>
+            <span class="badge">INGENIERÍA INDUSTRIAL</span>
+            <span class="badge">15 SEMANAS</span>
+            <span class="badge">SEARS & ZEMANSKY · 14.ª ED.</span>
+        </div>
+
+        <h1>
+            PROYECTO<br>
+            <span class="green">GENESIS</span>
+        </h1>
+
+        <p>
+            Una ruta de entrenamiento para comprender, modelar y resolver
+            situaciones físicas presentes en sistemas industriales, procesos
+            productivos, transporte, automatización, energía y diseño de
+            sistemas.
+        </p>
+
+        <p>
+            Cada dinámica parte de un <strong>caso contextualizado</strong>,
+            presenta datos cuantitativos y solicita construir una solución
+            física argumentada. La propuesta se encuentra alineada
+            conceptualmente con los contenidos de
+            <strong>Sears & Zemansky, Física Universitaria, 14.ª edición</strong>.
+        </p>
+    </div>
+
+    <div class="hero-panel">
+        <div class="number">15</div>
+        <strong>SEMANAS DE MISIÓN</strong>
+        <p>
+            45 dinámicas de contenido + noticias semanales +
+            laboratorios estratégicos + exposición y repaso final.
+        </p>
+        <div class="badges">
+            <span class="badge">Cinemática</span>
+            <span class="badge">Dinámica</span>
+            <span class="badge">Vectores</span>
+            <span class="badge">Energía</span>
+            <span class="badge">Equilibrio</span>
+        </div>
+    </div>
+</section>
+
+<main class="container">
+
+    <div class="student">
+        <input id="studentName" type="text" placeholder="Escriba su nombre completo">
+        <button class="btn primary" onclick="saveStudent()">Guardar identificación</button>
+    </div>
+
+    <section class="dashboard">
+        <div class="stat">
+            <small>Progreso general</small>
+            <strong id="progressText">0%</strong>
+            <div class="progress">
+                <div id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="stat">
+            <small>Misiones completadas</small>
+            <strong id="completedText">0</strong>
+        </div>
+
+        <div class="stat">
+            <small>XP acumulada</small>
+            <strong id="xpText">0 XP</strong>
+        </div>
+    </section>
+
+    <div class="toolbar">
+        <input
+            id="search"
+            type="text"
+            placeholder="Buscar contenido, dinámica, concepto o caso..."
+            oninput="renderWeeks()"
+        >
+
+        <select id="weekFilter" onchange="renderWeeks()">
+            <option value="all">Todas las semanas</option>
+            <option value="1">Semana 1</option>
+            <option value="2">Semana 2</option>
+            <option value="3">Semana 3</option>
+            <option value="4">Semana 4</option>
+            <option value="5">Semana 5 · Laboratorio</option>
+            <option value="6">Semana 6</option>
+            <option value="7">Semana 7</option>
+            <option value="8">Semana 8</option>
+            <option value="9">Semana 9 · Laboratorio</option>
+            <option value="10">Semana 10</option>
+            <option value="11">Semana 11 · Laboratorio</option>
+            <option value="12">Semana 12</option>
+            <option value="13">Semana 13</option>
+            <option value="14">Semana 14 · Laboratorio</option>
+            <option value="15">Semana 15</option>
+        </select>
+    </div>
+
+    <div class="section-title">
+        <h2>Ruta de entrenamiento</h2>
+        <p>
+            De la representación vectorial al análisis energético y el equilibrio.
+        </p>
+    </div>
+
+    <div class="route">
+        <div class="route-item"><strong>01–03</strong><br>Vectores</div>
+        <div class="route-item"><strong>04–07</strong><br>Cinemática</div>
+        <div class="route-item"><strong>08–10</strong><br>Fuerzas</div>
+        <div class="route-item"><strong>11–13</strong><br>Trabajo y energía</div>
+        <div class="route-item"><strong>14–15</strong><br>Equilibrio y cierre</div>
+    </div>
+
+    <div id="weeks"></div>
+
+</main>
+
+<footer>
+    <strong>PROYECTO GENESIS · FÍSICA I</strong><br>
+    Física aplicada a la ingeniería industrial ·
+    Casos originales alineados conceptualmente con Sears & Zemansky, 14.ª edición.
+</footer>
+
+<script>
+
+/* ============================================================
+   DATOS DEL CURSO
+============================================================ */
+
+const weeks = [
+
+{
+week:1,
+title:"Fundamentos: unidades, cantidades y vectores",
+contents:[
+"Unidades, cantidades físicas y vectores",
+"Cantidad escalar y vectorial",
+"Clasificación de vectores",
+"Vectores deslizantes"
+],
+activities:[
+
+{
+id:"w1a1",
+title:"Misión 1 · El sistema de medición de una planta inteligente",
+type:"Dinámica · Unidades, cantidades físicas y vectores",
+short:"Analice los datos de una planta automatizada y determine magnitudes, unidades y desplazamientos.",
+context:"Una empresa de manufactura está instalando un vehículo guiado automáticamente (AGV) para transportar materia prima entre tres estaciones. Durante una prueba, el vehículo recorre 18.0 m hacia el este, posteriormente 12.0 m hacia el norte y finalmente 7.0 m con una dirección de 30° al sur del este. El sistema registra además una masa de carga de 42.0 kg, una batería de 18.6 V y una corriente promedio de 3.20 A.",
+data:[
+["Tramo 1","18.0 m hacia el este"],
+["Tramo 2","12.0 m hacia el norte"],
+["Tramo 3","7.0 m a 30° S del E"],
+["Carga","42.0 kg"],
+["Batería","18.6 V"],
+["Corriente","3.20 A"]
+],
+tasks:[
+"Clasifique cada cantidad proporcionada como escalar o vectorial.",
+"Identifique la unidad SI correspondiente a cada magnitud.",
+"Represente gráficamente los tres desplazamientos.",
+"Determine las componentes cartesianas del tercer desplazamiento.",
+"Calcule el desplazamiento resultante del AGV.",
+"Determine la magnitud y dirección del desplazamiento resultante.",
+"Explique por qué distancia recorrida y desplazamiento no representan la misma cantidad física."
+],
+evidence:"Ficha técnica de una página con tabla de magnitudes, representación vectorial, cálculos y conclusión.",
+criteria:["Conversión y uso correcto de unidades","Clasificación escalar/vectorial","Representación gráfica","Procedimiento matemático","Interpretación física"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: medición, unidades, cantidades físicas y representación vectorial."
+},
+
+{
+id:"w1a2",
+title:"Misión 2 · ¿Rapidez o velocidad?",
+type:"Dinámica · Cantidades escalares y vectoriales",
+short:"Distinga magnitudes escalares y vectoriales en el movimiento de un sistema de transporte.",
+context:"En un centro de distribución, un AGV de 320 kg se desplaza durante 135 s. El sistema registra una distancia total recorrida de 240 m, mientras que el desplazamiento neto entre el punto de partida y el punto de entrega es de 165 m hacia el este. Durante el trayecto alcanza una rapidez máxima de 2.4 m/s.",
+data:[
+["Masa","320 kg"],
+["Tiempo total","135 s"],
+["Distancia recorrida","240 m"],
+["Desplazamiento","165 m hacia el este"],
+["Rapidez máxima","2.4 m/s"]
+],
+tasks:[
+"Identifique cuáles datos son escalares y cuáles son vectoriales.",
+"Calcule la rapidez media basada en la distancia recorrida.",
+"Calcule la velocidad media.",
+"Explique por qué ambas respuestas son diferentes.",
+"Indique qué magnitud debe utilizar un sistema de navegación para conocer dirección y sentido."
+],
+evidence:"Cuadro comparativo escalar/vectorial con cálculos y explicación técnica.",
+criteria:["Identificación conceptual","Cálculo de rapidez","Cálculo de velocidad","Argumentación física"],
+time:"30 min",
+xp:90,
+sears:"Alineación conceptual: cantidades escalares y vectoriales aplicadas al movimiento."
+},
+
+{
+id:"w1a3",
+title:"Misión 3 · Clasificación de vectores en un brazo robótico",
+type:"Dinámica · Clasificación de vectores",
+short:"Analice fuerzas aplicadas sobre un sistema mecánico y clasifique los vectores según su naturaleza.",
+context:"Un brazo robótico sostiene una caja de 185 N mediante un actuador. En el punto de unión se representa una fuerza de 4.2 kN orientada 35° sobre el eje horizontal. El equipo de diseño necesita diferenciar vectores libres, ligados y deslizantes para construir el modelo mecánico.",
+data:[
+["Peso de la carga","185 N"],
+["Fuerza del actuador","4.2 kN"],
+["Ángulo","35°"],
+["Sistema","Brazo robótico industrial"],
+["Punto de aplicación","Unión actuador–brazo"]
+],
+tasks:[
+"Explique qué características definen un vector.",
+"Clasifique el vector fuerza según su punto de aplicación y línea de acción.",
+"Represente la fuerza en un diagrama.",
+"Explique qué cambiaría si se trasladara el punto de aplicación sin modificar la línea de acción.",
+"Indique por qué la clasificación es importante en el modelado de sistemas mecánicos."
+],
+evidence:"Diagrama técnico anotado y explicación de la clasificación vectorial.",
+criteria:["Clasificación","Diagrama","Línea de acción","Interpretación mecánica"],
+time:"30 min",
+xp:90,
+sears:"Alineación conceptual: vectores y representación de magnitudes físicas."
+},
+
+{
+id:"w1a4",
+title:"Misión 4 · La línea de acción",
+type:"Dinámica · Vectores deslizantes",
+short:"Determine cuándo una fuerza puede considerarse un vector deslizante en un sistema mecánico.",
+context:"Una banda transportadora mueve una plataforma metálica. Un operador aplica una fuerza horizontal de 450 N mediante una barra de empuje. La línea de acción de la fuerza coincide con el eje longitudinal de la plataforma, aunque el punto de contacto puede cambiar a lo largo de dicha línea.",
+data:[
+["Fuerza aplicada","450 N"],
+["Dirección","Horizontal"],
+["Longitud de plataforma","2.4 m"],
+["Aplicación","A lo largo de la misma línea de acción"]
+],
+tasks:[
+"Represente tres posibles puntos de aplicación de la fuerza.",
+"Determine qué características permanecen constantes.",
+"Explique por qué la fuerza puede modelarse como vector deslizante en este caso.",
+"Indique una situación donde trasladar la fuerza sí produciría un efecto rotacional diferente."
+],
+evidence:"Esquema comparativo de tres posiciones y explicación técnica.",
+criteria:["Línea de acción","Comprensión del vector deslizante","Análisis de momento","Representación"],
+time:"25 min",
+xp:80,
+sears:"Alineación conceptual: vectores aplicados y línea de acción de fuerzas."
+}
+
+]
+},
+
+{
+week:2,
+title:"Geometría vectorial y vector unitario",
+contents:[
+"Representación geométrica de vectores",
+"Propiedades de los vectores",
+"Vector unitario"
+],
+activities:[
+
+{
+id:"w2a1",
+title:"Misión 1 · Ruta vectorial de un dron de inspección",
+type:"Dinámica · Representación geométrica",
+short:"Construya una representación vectorial de la ruta de inspección de un dron industrial.",
+context:"Un dron realiza una inspección visual de un techo industrial. Desde el punto A se desplaza 125 m con dirección 28° al norte del este. Luego realiza un desplazamiento de 80 m hacia el norte. El equipo necesita determinar gráficamente su posición respecto al punto de partida.",
+data:[
+["Desplazamiento A–B","125 m"],
+["Dirección","28° N del E"],
+["Desplazamiento B–C","80 m N"],
+["Sistema de referencia","x este, y norte"]
+],
+tasks:[
+"Dibuje ambos vectores a escala.",
+"Construya gráficamente el vector resultante.",
+"Determine las componentes del primer desplazamiento.",
+"Estime gráficamente la magnitud y dirección del resultante.",
+"Compare el resultado gráfico con el resultado analítico."
+],
+evidence:"Plano vectorial a escala acompañado de cálculo analítico.",
+criteria:["Escala","Dirección","Componentes","Comparación gráfica/analítica"],
+time:"35 min",
+xp:90,
+sears:"Alineación conceptual: representación geométrica y componentes vectoriales."
+},
+
+{
+id:"w2a2",
+title:"Misión 2 · Propiedades de un sistema de fuerzas",
+type:"Dinámica · Propiedades de los vectores",
+short:"Identifique igualdad, oposición, magnitud y dirección en un sistema de fuerzas.",
+context:"Una estructura de almacenamiento recibe una fuerza horizontal de 1.80 kN hacia la derecha y otra fuerza de 1.80 kN hacia la izquierda. En otra condición aparece una fuerza de 2.40 kN a 40° sobre la horizontal.",
+data:[
+["F₁","1.80 kN derecha"],
+["F₂","1.80 kN izquierda"],
+["F₃","2.40 kN"],
+["Dirección F₃","40°"]
+],
+tasks:[
+"Determine cuáles vectores tienen igual magnitud.",
+"Identifique pares de vectores opuestos.",
+"Represente los vectores mediante flechas.",
+"Explique qué propiedad se modifica al cambiar únicamente el sentido.",
+"Analice qué ocurre con la suma de F₁ y F₂."
+],
+evidence:"Mapa conceptual de propiedades vectoriales y aplicación al caso.",
+criteria:["Magnitud","Dirección","Sentido","Suma vectorial"],
+time:"30 min",
+xp:90,
+sears:"Alineación conceptual: propiedades fundamentales de los vectores."
+},
+
+{
+id:"w2a3",
+title:"Misión 3 · Vector unitario para navegación industrial",
+type:"Dinámica · Vector unitario",
+short:"Construya el vector unitario que representa la dirección de movimiento de un AGV.",
+context:"El desplazamiento de un AGV entre dos estaciones está representado por R = 6.0i + 8.0j m, donde i representa el este y j el norte.",
+data:[
+["Rₓ","6.0 m"],
+["Rᵧ","8.0 m"],
+["Vector","R = 6i + 8j m"]
+],
+tasks:[
+"Calcule la magnitud de R.",
+"Determine el vector unitario asociado a R.",
+"Compruebe que la magnitud del vector unitario sea 1.",
+"Interprete físicamente las componentes del vector unitario.",
+"Explique cómo utilizaría el vector unitario para orientar un vehículo."
+],
+evidence:"Ficha de cálculo con comprobación matemática.",
+criteria:["Magnitud","Normalización","Comprobación","Interpretación"],
+time:"25 min",
+xp:90,
+sears:"Alineación conceptual: magnitud, dirección y vectores unitarios."
+}
+
+]
+},
+
+{
+week:3,
+title:"Operaciones analíticas con vectores",
+contents:[
+"Suma geométrica de vectores",
+"Representación analítica de vectores",
+"Operaciones con vectores en forma analítica"
+],
+activities:[
+
+{
+id:"w3a1",
+title:"Misión 1 · Dos robots, una plataforma",
+type:"Dinámica · Suma geométrica",
+short:"Determine el desplazamiento resultante de una plataforma movilizada mediante dos desplazamientos sucesivos.",
+context:"Una plataforma de mantenimiento se desplaza 14.0 m hacia el este y posteriormente 9.0 m a 45° al norte del oeste. El supervisor necesita conocer la posición final respecto al punto inicial.",
+data:[
+["D₁","14.0 m E"],
+["D₂","9.0 m a 45° N del O"],
+["Referencia","Punto inicial"]
+],
+tasks:[
+"Represente los vectores mediante el método punta-cola.",
+"Construya gráficamente el vector resultante.",
+"Determine las componentes de D₂.",
+"Obtenga la magnitud del desplazamiento resultante.",
+"Determine su dirección respecto al eje este."
+],
+evidence:"Representación geométrica y solución matemática.",
+criteria:["Método punta-cola","Componentes","Resultante","Dirección"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: suma geométrica y analítica de vectores."
+},
+
+{
+id:"w3a2",
+title:"Misión 2 · Navegación de un vehículo autónomo",
+type:"Dinámica · Representación analítica",
+short:"Transforme información direccional en componentes cartesianas.",
+context:"Un vehículo autónomo se mueve con velocidad de 55 m/s formando 18° al norte del este. El viento tiene una velocidad de 12 m/s hacia el oeste.",
+data:[
+["Velocidad del vehículo","55 m/s"],
+["Dirección","18° N del E"],
+["Viento","12 m/s O"]
+],
+tasks:[
+"Represente la velocidad del vehículo en forma vectorial.",
+"Calcule sus componentes x e y.",
+"Represente la velocidad del viento.",
+"Determine la suma vectorial.",
+"Interprete la dirección resultante del movimiento."
+],
+evidence:"Modelo vectorial del sistema con componentes y conclusión.",
+criteria:["Componentes","Signos","Suma","Interpretación"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: componentes cartesianas de vectores."
+},
+
+{
+id:"w3a3",
+title:"Misión 3 · Operaciones vectoriales en el diseño de planta",
+type:"Dinámica · Operaciones analíticas",
+short:"Combine vectores para modelar desplazamientos y fuerzas en una operación industrial.",
+context:"Durante el rediseño de una línea de producción, un carro recibe desplazamientos sucesivos representados por A = 18i + 6j m y B = −5i + 12j m.",
+data:[
+["A","18i + 6j m"],
+["B","−5i + 12j m"]
+],
+tasks:[
+"Calcule A+B.",
+"Calcule A−B.",
+"Determine la magnitud de cada resultado.",
+"Represente ambos resultados.",
+"Explique cuál operación representa una diferencia entre estados de posición."
+],
+evidence:"Hoja de operaciones vectoriales con representación gráfica.",
+criteria:["Operaciones","Componentes","Magnitudes","Interpretación"],
+time:"30 min",
+xp:90,
+sears:"Alineación conceptual: álgebra vectorial aplicada a problemas físicos."
+}
+
+]
+},
+
+{
+week:4,
+title:"Movimiento plano y funciones vectoriales",
+contents:[
+"Movimiento de plano general",
+"Movimiento curvilíneo de una partícula",
+"Derivadas de las funciones vectoriales"
+],
+activities:[
+
+{
+id:"w4a1",
+title:"Misión 1 · Paquete sobre una banda curva",
+type:"Dinámica · Movimiento de plano general",
+short:"Modele la posición de un paquete que se mueve simultáneamente en x e y.",
+context:"Un paquete se desplaza sobre una sección curva de una línea automatizada. Su posición puede aproximarse mediante x(t)=1.2t+0.10t² y y(t)=0.50t², con x,y en metros y t en segundos.",
+data:[
+["x(t)","1.2t + 0.10t² m"],
+["y(t)","0.50t² m"],
+["Intervalo","0 ≤ t ≤ 4 s"]
+],
+tasks:[
+"Calcule la posición a t=2 s.",
+"Determine la función velocidad.",
+"Determine la velocidad a t=2 s.",
+"Determine la aceleración.",
+"Interprete por qué la trayectoria no es rectilínea."
+],
+evidence:"Informe corto de modelado cinemático.",
+criteria:["Función posición","Derivación","Velocidad","Aceleración"],
+time:"40 min",
+xp:110,
+sears:"Alineación conceptual: posición, velocidad y aceleración en dos dimensiones."
+},
+
+{
+id:"w4a2",
+title:"Misión 2 · Trayectoria curvilínea de un vehículo AGV",
+type:"Dinámica · Movimiento curvilíneo",
+short:"Determine velocidad y aceleración de un vehículo que sigue una trayectoria curva.",
+context:"Durante una prueba de control, la posición de un AGV se modela como r(t)=20t i + 3t² j, en metros.",
+data:[
+["r(t)","20t i + 3t² j m"],
+["Tiempo de análisis","t = 3 s"]
+],
+tasks:[
+"Determine r(3).",
+"Calcule v(t).",
+"Calcule a(t).",
+"Determine magnitud y dirección de la velocidad en t=3 s.",
+"Explique qué componente produce el cambio vertical."
+],
+evidence:"Ficha de cinemática vectorial.",
+criteria:["Derivación","Componentes","Magnitud","Dirección"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: movimiento curvilíneo y funciones vectoriales."
+},
+
+{
+id:"w4a3",
+title:"Misión 3 · El lenguaje matemático del movimiento",
+type:"Dinámica · Derivadas vectoriales",
+short:"Utilice derivadas para obtener velocidad y aceleración de una partícula.",
+context:"La posición de una pieza móvil de una máquina está dada por r(t)=(4t²−2t)i +(3t−0.5t²)j m.",
+data:[
+["r(t)","(4t²−2t)i +(3t−0.5t²)j m"],
+["Instante","t=3 s"]
+],
+tasks:[
+"Obtenga v(t)=dr/dt.",
+"Obtenga a(t)=dv/dt.",
+"Evalúe ambas funciones en t=3 s.",
+"Calcule las magnitudes.",
+"Explique qué representa físicamente cada derivada."
+],
+evidence:"Desarrollo matemático comentado.",
+criteria:["Derivación","Sustitución","Unidades","Interpretación física"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: derivación de funciones vectoriales en cinemática."
+}
+
+]
+},
+
+{
+week:5,
+title:"Sistemas de referencia, posición y velocidad media",
+contents:[
+"Sistemas de referencia",
+"Trayectoria, vector posición y vector desplazamiento",
+"Vector velocidad media"
+],
+lab:true,
+activities:[
+
+{
+id:"w5a1",
+title:"Misión 1 · ¿Se mueve realmente el operario?",
+type:"Dinámica · Sistemas de referencia",
+short:"Analice el movimiento de un trabajador observado desde dos sistemas de referencia.",
+context:"Un trabajador se desplaza dentro de un tren de mantenimiento que avanza a 8.0 m/s respecto a la plataforma. El trabajador camina hacia el frente del tren a 1.5 m/s respecto al tren.",
+data:[
+["Velocidad tren","8.0 m/s"],
+["Velocidad trabajador respecto al tren","1.5 m/s"],
+["Dirección","Ambas hacia adelante"]
+],
+tasks:[
+"Defina los dos sistemas de referencia.",
+"Determine la velocidad del trabajador respecto a la plataforma.",
+"Determine la velocidad si camina hacia atrás a 1.5 m/s.",
+"Explique por qué una misma persona puede tener diferentes velocidades según el observador."
+],
+evidence:"Diagrama de sistemas de referencia y solución comparativa.",
+criteria:["Referencias","Velocidad relativa","Signos","Interpretación"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: movimiento relativo y sistemas de referencia."
+},
+
+{
+id:"w5a2",
+title:"Misión 2 · La trayectoria de un dron de inventario",
+type:"Dinámica · Trayectoria, posición y desplazamiento",
+short:"Reconstruya el movimiento de un dron a partir de posiciones sucesivas.",
+context:"Un dron de inventario registra las siguientes posiciones respecto a una esquina de la bodega: A(0,0), B(12,8), C(25,8), D(25,18), todas en metros.",
+data:[
+["A","(0,0) m"],
+["B","(12,8) m"],
+["C","(25,8) m"],
+["D","(25,18) m"]
+],
+tasks:[
+"Represente la trayectoria.",
+"Determine el vector posición de cada punto.",
+"Calcule el desplazamiento A→D.",
+"Calcule la distancia total recorrida.",
+"Explique por qué trayectoria y desplazamiento no son equivalentes."
+],
+evidence:"Mapa de trayectoria con vectores posición y desplazamiento.",
+criteria:["Trayectoria","Posición","Desplazamiento","Distancia"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: posición, trayectoria y desplazamiento."
+},
+
+{
+id:"w5a3",
+title:"Misión 3 · Indicador de desempeño del AGV",
+type:"Dinámica · Velocidad media",
+short:"Calcule la velocidad media de un sistema de transporte interno.",
+context:"Un AGV inicia su recorrido en el punto A y después de 48 s llega al punto B. El desplazamiento neto es 96 m hacia el oeste, aunque la distancia recorrida fue de 140 m.",
+data:[
+["Tiempo","48 s"],
+["Desplazamiento","96 m O"],
+["Distancia","140 m"]
+],
+tasks:[
+"Calcule la velocidad media.",
+"Calcule la rapidez media.",
+"Compare ambos resultados.",
+"Explique cuál indicador debería utilizarse para evaluar el tiempo de entrega y cuál para estudiar el cambio de posición."
+],
+evidence:"Mini dashboard de desempeño cinemático.",
+criteria:["Velocidad media","Rapidez media","Unidades","Interpretación"],
+time:"30 min",
+xp:90,
+sears:"Alineación conceptual: velocidad media y desplazamiento."
+}
+
+]
+},
+
+{
+week:6,
+title:"Movimiento acelerado",
+contents:[
+"Movimiento acelerado",
+"Aceleración media",
+"Movimiento uniformemente acelerado",
+"Movimiento uniformemente desacelerado"
+],
+activities:[
+
+{
+id:"w6a1",
+title:"Misión 1 · Aceleración de una carretilla industrial",
+type:"Dinámica · Movimiento acelerado",
+short:"Analice datos de velocidad obtenidos de una carretilla automatizada.",
+context:"Una carretilla inicia una operación con velocidad de 2.0 m/s y alcanza 14.0 m/s en 6.0 s. El sistema supone aceleración constante durante este intervalo.",
+data:[
+["v₀","2.0 m/s"],
+["v","14.0 m/s"],
+["Δt","6.0 s"]
+],
+tasks:[
+"Determine la aceleración.",
+"Determine la distancia recorrida durante el intervalo.",
+"Calcule la velocidad a t=3 s.",
+"Construya una gráfica velocidad-tiempo.",
+"Explique la pendiente de la gráfica."
+],
+evidence:"Gráfica v-t y reporte de resultados.",
+criteria:["Aceleración","MRUA","Gráfica","Interpretación"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: aceleración y movimiento con aceleración constante."
+},
+
+{
+id:"w6a2",
+title:"Misión 2 · Comparación de turnos de producción",
+type:"Dinámica · Aceleración media",
+short:"Compare dos perfiles de aceleración de vehículos industriales.",
+context:"El vehículo A pasa de 0 a 12 m/s en 5 s. El vehículo B pasa de 4 a 16 m/s en 8 s.",
+data:[
+["Vehículo A","0 → 12 m/s en 5 s"],
+["Vehículo B","4 → 16 m/s en 8 s"]
+],
+tasks:[
+"Calcule la aceleración media de cada vehículo.",
+"Determine cuál experimenta mayor cambio de velocidad por unidad de tiempo.",
+"Explique por qué la velocidad inicial no determina por sí sola la aceleración."
+],
+evidence:"Comparación técnica en tabla.",
+criteria:["Cálculo","Comparación","Interpretación"],
+time:"25 min",
+xp:80,
+sears:"Alineación conceptual: aceleración media."
+},
+
+{
+id:"w6a3",
+title:"Misión 3 · Arranque controlado",
+type:"Dinámica · Movimiento uniformemente acelerado",
+short:"Diseñe un perfil de aceleración para una plataforma de transporte.",
+context:"Una plataforma parte del reposo y debe alcanzar 20.0 m/s en 10.0 s manteniendo aceleración constante.",
+data:[
+["v₀","0 m/s"],
+["v final","20.0 m/s"],
+["Tiempo","10.0 s"]
+],
+tasks:[
+"Determine la aceleración.",
+"Determine la distancia recorrida.",
+"Construya las ecuaciones v(t) y x(t).",
+"Calcule la velocidad en t=6 s."
+],
+evidence:"Perfil cinemático del arranque.",
+criteria:["Ecuaciones","Aceleración","Desplazamiento","Evaluación temporal"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: movimiento uniformemente acelerado."
+},
+
+{
+id:"w6a4",
+title:"Misión 4 · Frenado de emergencia",
+type:"Dinámica · Movimiento uniformemente desacelerado",
+short:"Determine la distancia necesaria para detener un vehículo industrial.",
+context:"Un montacargas se desplaza a 22.0 m/s cuando se activa el sistema de emergencia. Se detiene completamente en 4.5 s suponiendo desaceleración constante.",
+data:[
+["Velocidad inicial","22.0 m/s"],
+["Velocidad final","0 m/s"],
+["Tiempo","4.5 s"]
+],
+tasks:[
+"Determine la aceleración.",
+"Calcule la distancia de frenado.",
+"Determine la velocidad al transcurrir 2.0 s.",
+"Explique qué ocurriría con la distancia de frenado si el tiempo de detención se duplicara manteniendo el mismo modelo."
+],
+evidence:"Informe de seguridad cinemática.",
+criteria:["Desaceleración","Distancia","Modelo","Interpretación"],
+time:"40 min",
+xp:110,
+sears:"Alineación conceptual: aceleración constante y frenado."
+}
+
+]
+},
+
+{
+week:7,
+title:"Movimiento relativo, rotación y Coriolis",
+contents:[
+"Velocidad absoluta y relativa",
+"Derivada temporal respecto a un sistema en rotación",
+"Aceleración de Coriolis"
+],
+activities:[
+
+{
+id:"w7a1",
+title:"Misión 1 · Avión, viento y velocidad relativa",
+type:"Dinámica · Velocidad absoluta y relativa",
+short:"Determine la velocidad real de una aeronave considerando el viento.",
+context:"Una aeronave mantiene una velocidad de 210 m/s respecto al aire en dirección norte. El viento se desplaza a 35 m/s hacia el este.",
+data:[
+["Velocidad respecto al aire","210 m/s N"],
+["Viento","35 m/s E"]
+],
+tasks:[
+"Construya el triángulo vectorial.",
+"Determine la velocidad absoluta.",
+"Determine la dirección respecto al norte.",
+"Explique la diferencia entre velocidad relativa y absoluta."
+],
+evidence:"Diagrama vectorial de navegación.",
+criteria:["Vectores","Velocidad relativa","Magnitud","Dirección"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: movimiento relativo."
+},
+
+{
+id:"w7a2",
+title:"Misión 2 · Plataforma rotatoria de producción",
+type:"Dinámica · Sistema de referencia en rotación",
+short:"Analice la velocidad y aceleración de un punto perteneciente a una plataforma rotatoria.",
+context:"Una plataforma circular de radio 0.40 m gira con velocidad angular de 12 rad/s y aceleración angular de 3.0 rad/s².",
+data:[
+["Radio","0.40 m"],
+["ω","12 rad/s"],
+["α","3.0 rad/s²"]
+],
+tasks:[
+"Calcule la velocidad tangencial.",
+"Calcule la aceleración normal.",
+"Calcule la aceleración tangencial.",
+"Determine la magnitud de la aceleración total.",
+"Explique qué componente depende de la velocidad angular y cuál de la aceleración angular."
+],
+evidence:"Diagrama de componentes de aceleración.",
+criteria:["Movimiento rotacional","Componentes","Unidades","Interpretación"],
+time:"40 min",
+xp:110,
+sears:"Alineación conceptual: movimiento relativo y sistemas rotatorios."
+},
+
+{
+id:"w7a3",
+title:"Misión 3 · Coriolis en una plataforma automatizada",
+type:"Dinámica · Aceleración de Coriolis",
+short:"Determine la aceleración transversal producida por el movimiento relativo dentro de un sistema rotatorio.",
+context:"Una pieza se desplaza radialmente sobre una plataforma que gira con velocidad angular constante de 5.0 rad/s. La velocidad radial relativa de la pieza es 0.80 m/s.",
+data:[
+["ω","5.0 rad/s"],
+["v relativa","0.80 m/s"],
+["Movimiento","Radial"]
+],
+tasks:[
+"Escriba la expresión de la aceleración de Coriolis.",
+"Determine su magnitud.",
+"Indique su dirección utilizando la regla de la mano derecha.",
+"Explique por qué esta aceleración no aparece cuando el sistema de referencia no rota."
+],
+evidence:"Diagrama vectorial tridimensional simplificado.",
+criteria:["Expresión física","Cálculo","Dirección","Interpretación"],
+time:"35 min",
+xp:110,
+sears:"Alineación conceptual: derivación temporal en sistemas de referencia rotatorios."
+}
+
+]
+},
+
+{
+week:8,
+title:"Interacciones y leyes de inercia",
+contents:[
+"Concepto de fuerza",
+"Partícula libre",
+"Ley de inercia",
+"Masa inercial"
+],
+activities:[
+
+{
+id:"w8a1",
+title:"Misión 1 · ¿Qué interacción produce el movimiento?",
+type:"Dinámica · Concepto de fuerza",
+short:"Identifique las interacciones responsables del movimiento de un sistema industrial.",
+context:"Una caja de 60 kg se encuentra sobre una superficie horizontal. Un operador aplica una fuerza de 180 N hacia la derecha mientras la fricción se opone con 40 N.",
+data:[
+["Masa","60 kg"],
+["Fuerza aplicada","180 N"],
+["Fricción","40 N"]
+],
+tasks:[
+"Identifique todas las interacciones relevantes.",
+"Construya el diagrama de cuerpo libre.",
+"Determine la fuerza neta.",
+"Determine la aceleración.",
+"Explique qué interacción modifica el movimiento."
+],
+evidence:"Diagrama de cuerpo libre y análisis.",
+criteria:["Interacciones","Fuerza neta","DCL","Aceleración"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: fuerza e interacción."
+},
+
+{
+id:"w8a2",
+title:"Misión 2 · La partícula libre",
+type:"Dinámica · Partícula libre",
+short:"Determine el comportamiento de un cuerpo cuando la fuerza neta es cero.",
+context:"Un carro de laboratorio de 18 kg se mueve sobre una superficie prácticamente sin fricción. Dos fuerzas horizontales de 75 N actúan en sentidos opuestos.",
+data:[
+["Masa","18 kg"],
+["F₁","75 N derecha"],
+["F₂","75 N izquierda"]
+],
+tasks:[
+"Determine la fuerza neta.",
+"Determine la aceleración.",
+"Explique qué ocurre con la velocidad.",
+"Relacione el resultado con el modelo de partícula libre."
+],
+evidence:"Diagrama y explicación conceptual.",
+criteria:["Fuerza neta","Aceleración","Primera ley"],
+time:"25 min",
+xp:80,
+sears:"Alineación conceptual: partícula libre y primera ley de Newton."
+},
+
+{
+id:"w8a3",
+title:"Misión 3 · Inercia en un vehículo industrial",
+type:"Dinámica · Ley de inercia",
+short:"Explique el comportamiento de una carga durante un cambio brusco de velocidad.",
+context:"Una caja de 35 kg está sobre la plataforma de un vehículo que inicialmente se mueve a 6 m/s. El vehículo frena rápidamente hasta detenerse.",
+data:[
+["Masa caja","35 kg"],
+["Velocidad inicial","6 m/s"],
+["Velocidad final","0 m/s"]
+],
+tasks:[
+"Explique qué tendencia presenta la caja.",
+"Identifique la ley física relacionada.",
+"Explique el papel de una barrera de seguridad.",
+"Relacione la situación con el diseño industrial."
+],
+evidence:"Infografía técnica sobre seguridad e inercia.",
+criteria:["Primera ley","Inercia","Aplicación industrial","Argumentación"],
+time:"30 min",
+xp:90,
+sears:"Alineación conceptual: ley de inercia."
+},
+
+{
+id:"w8a4",
+title:"Misión 4 · La masa inercial",
+type:"Dinámica · Masa inercial",
+short:"Compare la respuesta dinámica de dos objetos sometidos a la misma fuerza.",
+context:"Dos plataformas reciben una fuerza horizontal constante de 600 N. La plataforma A tiene masa de 120 kg y la B de 300 kg.",
+data:[
+["Fuerza","600 N"],
+["Masa A","120 kg"],
+["Masa B","300 kg"]
+],
+tasks:[
+"Calcule la aceleración de cada plataforma.",
+"Compare las aceleraciones.",
+"Explique la relación entre masa inercial y resistencia al cambio de movimiento.",
+"Determine qué plataforma requeriría mayor fuerza para alcanzar 4 m/s²."
+],
+evidence:"Tabla comparativa de masa–fuerza–aceleración.",
+criteria:["Segunda ley","Masa","Aceleración","Comparación"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: masa inercial y dinámica de partículas."
+}
+
+]
+},
+
+{
+week:9,
+title:"Cantidad de movimiento y leyes de Newton",
+contents:[
+"Cantidad de movimiento lineal",
+"Conservación de la cantidad de movimiento",
+"Segunda y tercera Ley de Newton"
+],
+lab:true,
+activities:[
+
+{
+id:"w9a1",
+title:"Misión 1 · El impulso de una línea de transporte",
+type:"Dinámica · Cantidad de movimiento",
+short:"Determine la cantidad de movimiento de un vehículo cargado.",
+context:"Un AGV de 1 200 kg se desplaza a 2.5 m/s hacia una estación de carga. Durante una operación de control se modifica su velocidad a 4.0 m/s.",
+data:[
+["Masa","1200 kg"],
+["v₁","2.5 m/s"],
+["v₂","4.0 m/s"]
+],
+tasks:[
+"Calcule la cantidad de movimiento inicial.",
+"Calcule la cantidad de movimiento final.",
+"Determine el cambio de cantidad de movimiento.",
+"Explique qué información aporta este cambio para analizar la interacción."
+],
+evidence:"Ficha de análisis de momentum.",
+criteria:["Definición","Cálculo","Cambio de momentum","Interpretación"],
+time:"30 min",
+xp:90,
+sears:"Alineación conceptual: cantidad de movimiento lineal."
+},
+
+{
+id:"w9a2",
+title:"Misión 2 · Colisión entre dos vehículos autónomos",
+type:"Dinámica · Conservación del momentum",
+short:"Analice una colisión unidimensional mediante conservación de cantidad de movimiento.",
+context:"Un carro A de 800 kg se desplaza a 4.0 m/s hacia el este y colisiona con un carro B de 1 200 kg inicialmente en reposo. Después de la colisión ambos quedan unidos.",
+data:[
+["m₁","800 kg"],
+["v₁","4.0 m/s E"],
+["m₂","1200 kg"],
+["v₂","0 m/s"],
+["Tipo","Colisión inelástica"]
+],
+tasks:[
+"Escriba la ecuación de conservación del momentum.",
+"Determine la velocidad común después de la colisión.",
+"Explique qué cantidad física se conserva.",
+"Analice por qué la energía cinética no necesariamente se conserva en este tipo de colisión."
+],
+evidence:"Reporte de análisis de colisión.",
+criteria:["Momentum","Sistema","Conservación","Interpretación energética"],
+time:"40 min",
+xp:110,
+sears:"Alineación conceptual: conservación de la cantidad de movimiento."
+},
+
+{
+id:"w9a3",
+title:"Misión 3 · Acción y reacción en una celda robotizada",
+type:"Dinámica · Segunda y tercera Ley de Newton",
+short:"Identifique pares de acción–reacción y determine la fuerza neta sobre un componente.",
+context:"Un robot empuja una caja con una fuerza horizontal de 250 N. La caja ejerce sobre el robot una fuerza de igual magnitud y sentido opuesto. La masa de la caja es 50 kg y la fricción horizontal es 30 N.",
+data:[
+["Fuerza robot→caja","250 N"],
+["Fuerza caja→robot","250 N"],
+["Masa caja","50 kg"],
+["Fricción","30 N"]
+],
+tasks:[
+"Identifique el par acción–reacción.",
+"Explique por qué estas fuerzas no se cancelan sobre el mismo cuerpo.",
+"Calcule la fuerza neta sobre la caja.",
+"Determine la aceleración.",
+"Explique la diferencia entre tercera y segunda ley."
+],
+evidence:"Diagrama de interacción entre robot y caja.",
+criteria:["Tercera ley","Segunda ley","Fuerza neta","Aceleración"],
+time:"40 min",
+xp:110,
+sears:"Alineación conceptual: segunda y tercera ley de Newton."
+}
+
+]
+},
+
+{
+week:10,
+title:"Gravitación, caída libre y equilibrio de partículas",
+contents:[
+"Ley de gravitación universal y caída libre",
+"Estática de una partícula",
+"Fuerzas y campos de fuerza"
+],
+activities:[
+
+{
+id:"w10a1",
+title:"Misión 1 · Caída libre en una zona de mantenimiento",
+type:"Dinámica · Gravitación y caída libre",
+short:"Determine el tiempo y velocidad de impacto de una herramienta que cae desde una estructura.",
+context:"Una herramienta cae accidentalmente desde una plataforma situada a 45.0 m sobre el piso. Se desprecia la resistencia del aire y se considera g=9.81 m/s².",
+data:[
+["Altura","45.0 m"],
+["Velocidad inicial","0 m/s"],
+["g","9.81 m/s²"]
+],
+tasks:[
+"Determine el tiempo de caída.",
+"Determine la velocidad inmediatamente antes del impacto.",
+"Determine la energía cinética justo antes del impacto si la masa es 2.5 kg.",
+"Explique las condiciones necesarias para utilizar el modelo de caída libre."
+],
+evidence:"Informe de seguridad de caída libre.",
+criteria:["Modelo","Ecuaciones","Velocidad","Interpretación"],
+time:"40 min",
+xp:110,
+sears:"Alineación conceptual: gravitación y movimiento de caída libre."
+},
+
+{
+id:"w10a2",
+title:"Misión 2 · Sistema de suspensión de una señal",
+type:"Dinámica · Estática de una partícula",
+short:"Determine las tensiones necesarias para mantener una carga en equilibrio.",
+context:"Una señal industrial de 500 N cuelga de dos cables. El cable izquierdo forma 35° con la horizontal y el derecho 50° con la horizontal.",
+data:[
+["Peso","500 N"],
+["Ángulo izquierdo","35°"],
+["Ángulo derecho","50°"]
+],
+tasks:[
+"Construya el diagrama de cuerpo libre.",
+"Plantee ΣFx=0.",
+"Plantee ΣFy=0.",
+"Determine ambas tensiones.",
+"Explique por qué la carga permanece en equilibrio."
+],
+evidence:"Diagrama de cuerpo libre y solución del sistema de ecuaciones.",
+criteria:["DCL","Equilibrio","Componentes","Sistema de ecuaciones"],
+time:"45 min",
+xp:120,
+sears:"Alineación conceptual: equilibrio de una partícula."
+},
+
+{
+id:"w10a3",
+title:"Misión 3 · Fuerzas y campos en el entorno industrial",
+type:"Dinámica · Campos de fuerza",
+short:"Diferencie fuerzas de contacto y fuerzas de campo.",
+context:"Una planta utiliza sensores para monitorear cargas suspendidas, movimiento de vehículos y sistemas de posicionamiento. Se identifican peso, tensión, fricción y fuerza gravitacional.",
+data:[
+["Peso","Fuerza gravitacional"],
+["Tensión","Interacción por cable"],
+["Fricción","Interacción de contacto"],
+["Campo gravitacional","Presente alrededor de masas"]
+],
+tasks:[
+"Clasifique las fuerzas como contacto o campo.",
+"Explique qué significa representar un campo.",
+"Relacione el campo gravitacional con el peso.",
+"Construya un mapa conceptual."
+],
+evidence:"Mapa conceptual de fuerzas y campos.",
+criteria:["Clasificación","Campo","Peso","Relaciones conceptuales"],
+time:"30 min",
+xp:90,
+sears:"Alineación conceptual: gravitación y campos de fuerza."
+}
+
+]
+},
+
+{
+week:11,
+title:"Producto escalar, trabajo y potencia",
+contents:[
+"Producto escalar de dos vectores",
+"Trabajo y potencia",
+"Trabajo elemental y virtual · Potencia"
+],
+lab:true,
+activities:[
+
+{
+id:"w11a1",
+title:"Misión 1 · Trabajo realizado por una fuerza",
+type:"Dinámica · Producto escalar",
+short:"Calcule el trabajo realizado al desplazar una carga mediante una fuerza inclinada.",
+context:"Un operador utiliza un actuador para desplazar una plataforma 18.0 m. La fuerza aplicada tiene magnitud 2.40 kN y forma un ángulo de 25° con el desplazamiento.",
+data:[
+["F","2.40 kN"],
+["d","18.0 m"],
+["θ","25°"]
+],
+tasks:[
+"Exprese el trabajo mediante producto escalar.",
+"Calcule el trabajo.",
+"Explique qué componente de la fuerza realiza trabajo.",
+"Determine qué ocurriría si la fuerza fuera perpendicular al desplazamiento."
+],
+evidence:"Solución gráfica y analítica del trabajo.",
+criteria:["Producto escalar","Ángulo","Trabajo","Interpretación"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: producto escalar y trabajo."
+},
+
+{
+id:"w11a2",
+title:"Misión 2 · Potencia de un sistema de elevación",
+type:"Dinámica · Trabajo y potencia",
+short:"Determine la potencia requerida por un sistema industrial de elevación.",
+context:"Un elevador industrial levanta verticalmente una carga de 450 kg hasta una altura de 8.0 m en 12 s. Se desprecia la pérdida de energía.",
+data:[
+["Masa","450 kg"],
+["Altura","8.0 m"],
+["Tiempo","12 s"],
+["g","9.81 m/s²"]
+],
+tasks:[
+"Determine el trabajo realizado contra la gravedad.",
+"Determine la potencia media.",
+"Convierta el resultado a kW.",
+"Si el motor tiene una eficiencia del 80 %, determine la potencia de entrada requerida."
+],
+evidence:"Ficha de dimensionamiento energético.",
+criteria:["Trabajo","Potencia","Conversión","Eficiencia"],
+time:"40 min",
+xp:110,
+sears:"Alineación conceptual: trabajo, potencia y eficiencia."
+},
+
+{
+id:"w11a3",
+title:"Misión 3 · Trabajo elemental en una banda transportadora",
+type:"Dinámica · Trabajo elemental y potencia",
+short:"Analice una fuerza variable durante el desplazamiento de una pieza.",
+context:"La fuerza de un actuador sobre una pieza varía con la posición según F(x)=400+30x N, donde x está expresada en metros. La pieza se desplaza desde x=0 hasta x=5.0 m en 10 s.",
+data:[
+["F(x)","400 + 30x N"],
+["Intervalo","0 a 5.0 m"],
+["Tiempo","10 s"]
+],
+tasks:[
+"Interprete físicamente la expresión F(x).",
+"Determine el trabajo mediante integración.",
+"Calcule la potencia media.",
+"Explique por qué no sería correcto utilizar únicamente F(0)·d.",
+"Relacione el resultado con el trabajo elemental dW=F·dr."
+],
+evidence:"Reporte matemático–físico del proceso.",
+criteria:["Fuerza variable","Integral","Trabajo","Potencia"],
+time:"45 min",
+xp:120,
+sears:"Alineación conceptual: trabajo elemental, trabajo de fuerza variable y potencia."
+}
+
+]
+},
+
+{
+week:12,
+title:"Energía cinética y potencial",
+contents:[
+"Tipos de energía",
+"Energía potencial gravitatoria",
+"Energía cinética"
+],
+activities:[
+
+{
+id:"w12a1",
+title:"Misión 1 · Diagnóstico energético de una máquina",
+type:"Dinámica · Tipos de energía",
+short:"Identifique y cuantifique diferentes formas de energía presentes en un sistema industrial.",
+context:"Una plataforma móvil de 1 200 kg se desplaza a 6.0 m/s sobre una sección elevada 1.5 m respecto al nivel de referencia.",
+data:[
+["Masa","1200 kg"],
+["Velocidad","6.0 m/s"],
+["Altura","1.5 m"],
+["g","9.81 m/s²"]
+],
+tasks:[
+"Identifique las formas de energía mecánica presentes.",
+"Calcule la energía cinética.",
+"Calcule la energía potencial gravitatoria.",
+"Compare ambas magnitudes.",
+"Explique qué ocurriría si la plataforma aumentara su velocidad al doble."
+],
+evidence:"Dashboard energético de la máquina.",
+criteria:["Identificación","Energía cinética","Potencial","Comparación"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: energía cinética y potencial."
+},
+
+{
+id:"w12a2",
+title:"Misión 2 · Energía en una operación de transporte",
+type:"Dinámica · Energía cinética y potencial",
+short:"Analice el balance de energía de una carga desplazada verticalmente.",
+context:"Una carga de 800 kg pasa de una plataforma ubicada a 2.0 m a otra ubicada a 7.5 m. En el segundo punto se mueve a 3.0 m/s.",
+data:[
+["Masa","800 kg"],
+["h₁","2.0 m"],
+["h₂","7.5 m"],
+["v₂","3.0 m/s"]
+],
+tasks:[
+"Calcule la variación de energía potencial.",
+"Calcule la energía cinética en el punto final.",
+"Determine la energía mecánica final.",
+"Explique qué información faltaría para determinar si hubo pérdidas."
+],
+evidence:"Informe de balance energético.",
+criteria:["Potencial","Cinética","Balance","Interpretación"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: energía mecánica."
+}
+
+]
+},
+
+{
+week:13,
+title:"Conservación de energía y campos conservativos",
+contents:[
+"Conservación de la energía mecánica",
+"Campos conservativos"
+],
+activities:[
+
+{
+id:"w13a1",
+title:"Misión 1 · Descenso de una plataforma",
+type:"Dinámica · Conservación de energía mecánica",
+short:"Determine la velocidad de un carro al descender sin pérdidas.",
+context:"Un carro de 250 kg parte del reposo desde una plataforma situada 12.0 m sobre el nivel inferior. Se desprecia la fricción.",
+data:[
+["Masa","250 kg"],
+["Altura","12.0 m"],
+["Velocidad inicial","0 m/s"],
+["g","9.81 m/s²"]
+],
+tasks:[
+"Determine la energía potencial inicial.",
+"Plantee la conservación de la energía mecánica.",
+"Determine la velocidad en el nivel inferior.",
+"Explique qué cambia y qué permanece constante.",
+"Analice cómo cambiaría la respuesta si existiera fricción."
+],
+evidence:"Esquema energético con barras de energía.",
+criteria:["Conservación","Energía potencial","Cinética","Modelo"],
+time:"40 min",
+xp:110,
+sears:"Alineación conceptual: conservación de energía mecánica."
+},
+
+{
+id:"w13a2",
+title:"Misión 2 · ¿Es conservativa la interacción?",
+type:"Dinámica · Campos conservativos",
+short:"Determine si una interacción puede modelarse mediante energía potencial.",
+context:"Un sistema de transporte mueve una pieza entre dos puntos mediante dos trayectorias diferentes. Para una interacción gravitatoria, el cambio de energía potencial depende únicamente de la diferencia de altura.",
+data:[
+["Punto A","h = 8 m"],
+["Punto B","h = 3 m"],
+["Trayectoria 1","Directa"],
+["Trayectoria 2","Curva"]
+],
+tasks:[
+"Determine la diferencia de energía potencial para una masa de 20 kg.",
+"Compare conceptualmente las dos trayectorias.",
+"Explique qué significa que el campo sea conservativo.",
+"Dé un ejemplo de interacción no conservativa en un sistema industrial."
+],
+evidence:"Cuadro comparativo de campos conservativos y no conservativos.",
+criteria:["Energía potencial","Trayectoria","Campo conservativo","Ejemplo"],
+time:"35 min",
+xp:100,
+sears:"Alineación conceptual: fuerzas conservativas y energía potencial."
+}
+
+]
+},
+
+{
+week:14,
+title:"Equilibrio y estabilidad",
+contents:[
+"Equilibrio",
+"Estabilidad del equilibrio"
+],
+lab:true,
+activities:[
+
+{
+id:"w14a1",
+title:"Misión 1 · Equilibrio de una plataforma industrial",
+type:"Dinámica · Equilibrio",
+short:"Determine si una plataforma sometida a varias cargas permanece en equilibrio.",
+context:"Una plataforma horizontal soporta una carga de 800 N en su extremo izquierdo y otra de 1 200 N en el extremo derecho. El sistema está sostenido por apoyos que deben equilibrar las fuerzas verticales.",
+data:[
+["Carga A","800 N"],
+["Carga B","1200 N"],
+["Condición","Plataforma estática"],
+["Modelo","Partícula/sistema idealizado"]
+],
+tasks:[
+"Realice el diagrama de fuerzas.",
+"Plantee la condición de equilibrio vertical.",
+"Determine la reacción total necesaria.",
+"Explique qué significa ΣF=0.",
+"Indique qué información adicional se requeriría para analizar momentos."
+],
+evidence:"Diagrama estructural y explicación del equilibrio.",
+criteria:["DCL","ΣF=0","Reacciones","Interpretación"],
+time:"40 min",
+xp:110,
+sears:"Alineación conceptual: equilibrio de sistemas mecánicos."
+},
+
+{
+id:"w14a2",
+title:"Misión 2 · ¿Estable o inestable?",
+type:"Dinámica · Estabilidad del equilibrio",
+short:"Analice la estabilidad de diferentes configuraciones industriales.",
+context:"Un equipo de ingeniería compara tres configuraciones de almacenamiento: una caja ancha y baja, una caja alta y estrecha y una esfera apoyada en una superficie horizontal. Se estudia la respuesta de cada sistema ante una pequeña perturbación.",
+data:[
+["Configuración A","Base ancha, centro de masa bajo"],
+["Configuración B","Base estrecha, centro de masa alto"],
+["Configuración C","Esfera sobre superficie horizontal"]
+],
+tasks:[
+"Clasifique cada configuración como estable, inestable o neutral.",
+"Explique el papel del centro de masa.",
+"Analice qué ocurre ante una pequeña perturbación.",
+"Proponga una modificación de diseño para aumentar la estabilidad de la configuración B.",
+"Relacione el análisis con seguridad industrial."
+],
+evidence:"Matriz de estabilidad y propuesta de rediseño.",
+criteria:["Clasificación","Centro de masa","Perturbación","Propuesta de ingeniería"],
+time:"40 min",
+xp:110,
+sears:"Alineación conceptual: equilibrio estable, inestable y neutro."
+}
+
+]
+},
+
+{
+week:15,
+title:"Integración, exposiciones y repaso de Física I",
+contents:[
+"Exposiciones",
+"Repaso de la materia",
+"Integración de conceptos de Física I"
+],
+activities:[
+
+{
+id:"w15a1",
+title:"Misión Final · Física de un sistema industrial",
+type:"Dinámica integradora · Exposición",
+short:"Integre los conceptos de Física I para explicar y modelar un sistema real de Ingeniería Industrial.",
+context:"Un equipo de ingeniería industrial debe presentar el análisis físico de un sistema de producción, transporte o almacenamiento. El sistema debe involucrar al menos tres fenómenos físicos estudiados durante el curso. El objetivo es demostrar que las herramientas matemáticas de Física I permiten interpretar y mejorar procesos industriales.",
+data:[
+["Escenario sugerido","AGV, banda transportadora, elevador, robot o sistema de almacenamiento"],
+["Conceptos mínimos","3 conceptos de Física I"],
+["Análisis cuantitativo","Mínimo 3 cálculos"],
+["Representaciones","Diagramas, vectores o gráficas"],
+["Propuesta","Una mejora sustentada físicamente"]
+],
+tasks:[
+"Defina el sistema industrial seleccionado.",
+"Identifique las variables físicas relevantes.",
+"Establezca supuestos y sistema de referencia.",
+"Construya al menos un diagrama físico.",
+"Realice tres cálculos cuantitativos.",
+"Explique las fuerzas, movimiento o energía involucrados.",
+"Identifique una oportunidad de mejora.",
+"Defienda técnicamente la propuesta durante la exposición."
+],
+evidence:"Exposición de 8–10 minutos + presentación visual + hoja técnica de cálculos.",
+criteria:["Rigor físico","Modelo matemático","Cálculos","Aplicación industrial","Comunicación","Argumentación"],
+time:"60 min",
+xp:200,
+sears:"Alineación conceptual: integración de los principales bloques de Física Universitaria."
+},
+
+{
+id:"w15a2",
+title:"Misión Final · Desafío de repaso",
+type:"Repaso · Física I",
+short:"Resuelva una secuencia de problemas integradores para identificar las relaciones entre los contenidos del curso.",
+context:"Una línea automatizada utiliza un AGV de 500 kg que parte del reposo, acelera hasta 8.0 m/s, transporta una carga elevada 2.0 m, frena ante una estación y finalmente permanece en equilibrio mientras descarga el material.",
+data:[
+["Masa AGV","500 kg"],
+["Velocidad máxima","8.0 m/s"],
+["Altura carga","2.0 m"],
+["g","9.81 m/s²"],
+["Condición inicial","Reposo"]
+],
+tasks:[
+"Identifique las variables cinemáticas.",
+"Determine la energía cinética a 8.0 m/s.",
+"Determine la energía potencial de la carga de 100 kg a 2.0 m.",
+"Identifique las fuerzas principales durante el frenado.",
+"Explique qué principio físico permite analizar el equilibrio final.",
+"Construya un mapa que conecte vectores, cinemática, fuerzas y energía."
+],
+evidence:"Mapa integrador + solución de problemas seleccionados.",
+criteria:["Integración conceptual","Cálculos","Conexiones entre temas","Interpretación"],
+time:"50 min",
+xp:150,
+sears:"Alineación conceptual: integración de cinemática, dinámica y energía."
+}
+
+]
+}
+
+];
+
+
+/* ============================================================
+   NOTICIAS SEMANALES
+============================================================ */
+
+const news = [
+
+{
+week:1,
+title:"Metrología y manufactura inteligente",
+prompt:"Busque una noticia o publicación reciente relacionada con metrología, sensores, robótica o manufactura inteligente en la que las unidades y vectores sean relevantes.",
+sources:"Fuentes sugeridas: NIST, NASA, IEEE, ASME, universidades o centros de investigación.",
+tasks:[
+"Identifique la fuente, autor y fecha.",
+"Explique qué magnitudes físicas aparecen.",
+"Identifique al menos dos cantidades vectoriales.",
+"Relacione la noticia con la actividad de la semana."
+]
+},
+
+{
+week:2,
+title:"Sensores y navegación vectorial",
+prompt:"Investigue una noticia sobre sensores de navegación, drones, robótica móvil o sistemas de posicionamiento.",
+sources:"Fuentes sugeridas: NASA, ESA, IEEE Spectrum, NIST.",
+tasks:[
+"Identifique cómo se representa la dirección.",
+"Explique el papel de los vectores.",
+"Seleccione un dato cuantitativo de la noticia.",
+"Relacione el caso con los vectores unitarios."
+]
+},
+
+{
+week:3,
+title:"Robots móviles y planificación de trayectorias",
+prompt:"Encuentre una noticia sobre robots móviles, AGV, AMR o planificación de rutas.",
+sources:"Fuentes sugeridas: IEEE, MIT, universidades, fabricantes industriales.",
+tasks:[
+"Identifique desplazamientos o velocidades.",
+"Represente una operación vectorial del caso.",
+"Explique cómo la suma vectorial ayuda a planificar el movimiento."
+]
+},
+
+{
+week:4,
+title:"Drones y movimiento curvilíneo",
+prompt:"Busque una noticia sobre drones, aeronaves o robots que describa movimientos en trayectorias curvas.",
+sources:"NASA, ESA, universidades, IEEE.",
+tasks:[
+"Identifique una trayectoria.",
+"Determine qué variables cinemáticas aparecen.",
+"Explique dónde aparecen velocidad y aceleración."
+]
+},
+
+{
+week:5,
+title:"Sistemas de posicionamiento y referencia",
+prompt:"Investigue una aplicación de GPS, navegación autónoma o posicionamiento industrial.",
+sources:"NASA, NIST, ESA, IEEE.",
+tasks:[
+"Identifique los sistemas de referencia.",
+"Explique posición y desplazamiento.",
+"Relacione el caso con velocidad relativa o media."
+]
+},
+
+{
+week:6,
+title:"Seguridad y frenado automatizado",
+prompt:"Busque una noticia sobre sistemas de frenado, vehículos autónomos, seguridad industrial o ADAS.",
+sources:"NHTSA, IEEE, fabricantes, universidades.",
+tasks:[
+"Identifique datos de velocidad o aceleración.",
+"Explique el papel de la desaceleración.",
+"Relacione la noticia con la distancia de frenado."
+]
+},
+
+{
+week:7,
+title:"Sistemas rotatorios y efecto Coriolis",
+prompt:"Investigue una aplicación tecnológica de sistemas rotatorios o del efecto Coriolis.",
+sources:"NASA, ESA, universidades, ingeniería.",
+tasks:[
+"Identifique el sistema de referencia rotatorio.",
+"Explique qué movimiento relativo aparece.",
+"Relacione el caso con la aceleración de Coriolis."
+]
+},
+
+{
+week:8,
+title:"Fuerzas y seguridad industrial",
+prompt:"Busque una noticia sobre seguridad de máquinas, robótica colaborativa o prevención de accidentes.",
+sources:"OSHA, IEEE, universidades, organismos de seguridad.",
+tasks:[
+"Identifique las fuerzas involucradas.",
+"Determine qué principio de Newton permite explicar el fenómeno.",
+"Relacione la fuerza con una medida de seguridad."
+]
+},
+
+{
+week:9,
+title:"Colisiones y conservación del momentum",
+prompt:"Busque una noticia relacionada con pruebas de impacto, robótica, vehículos autónomos o sistemas de transporte.",
+sources:"NHTSA, IEEE, universidades, centros de investigación.",
+tasks:[
+"Identifique masas y velocidades.",
+"Explique el papel del momentum.",
+"Determine qué principio de conservación puede aplicarse."
+]
+},
+
+{
+week:10,
+title:"Gravitación y tecnologías espaciales",
+prompt:"Investigue una noticia sobre satélites, órbitas, exploración espacial o gravitación.",
+sources:"NASA, ESA, universidades.",
+tasks:[
+"Identifique el papel de la gravedad.",
+"Seleccione un dato cuantitativo.",
+"Explique cómo un campo gravitacional influye en el sistema."
+]
+},
+
+{
+week:11,
+title:"Trabajo, potencia y eficiencia industrial",
+prompt:"Busque una noticia sobre motores, automatización, eficiencia energética o sistemas de elevación.",
+sources:"DOE, IEEE, ASME, universidades.",
+tasks:[
+"Identifique trabajo y potencia.",
+"Seleccione un indicador energético.",
+"Explique cómo se relaciona la eficiencia con la potencia requerida."
+]
+},
+
+{
+week:12,
+title:"Almacenamiento y transformación de energía",
+prompt:"Investigue una noticia sobre baterías, sistemas de almacenamiento, transporte o energía mecánica.",
+sources:"DOE, NREL, universidades, IEEE.",
+tasks:[
+"Identifique tipos de energía.",
+"Explique una transformación energética.",
+"Relacione la noticia con energía cinética o potencial."
+]
+},
+
+{
+week:13,
+title:"Conservación de energía y recuperación energética",
+prompt:"Busque una noticia sobre frenado regenerativo, recuperación de energía o eficiencia de sistemas.",
+sources:"DOE, fabricantes, universidades, IEEE.",
+tasks:[
+"Identifique dónde se conserva o transforma la energía.",
+"Explique si intervienen fuerzas conservativas o no conservativas.",
+"Relacione el caso con la actividad de la semana."
+]
+},
+
+{
+week:14,
+title:"Estabilidad y seguridad de estructuras",
+prompt:"Busque una noticia sobre estabilidad de estructuras, almacenamiento, diseño industrial o prevención de vuelcos.",
+sources:"ASCE, OSHA, universidades, medios científicos.",
+tasks:[
+"Identifique un sistema en equilibrio.",
+"Explique qué factores determinan su estabilidad.",
+"Proponga una medida de diseño."
+]
+},
+
+{
+week:15,
+title:"La Física detrás de la Ingeniería Industrial",
+prompt:"Seleccione una noticia que muestre una aplicación integrada de Física en un proceso industrial.",
+sources:"IEEE, ASME, universidades, centros de investigación.",
+tasks:[
+"Identifique al menos tres conceptos del curso.",
+"Explique cómo se relacionan.",
+"Determine qué concepto físico resulta fundamental para comprender el caso."
+]
+}
+
+];
+
+
+/* ============================================================
+   RENDER
+============================================================ */
+
+function escapeHTML(str){
+    return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;");
+}
+
+function activityHTML(a, week){
+
+    const completed =
+        JSON.parse(localStorage.getItem("genesisPhysicsProgress") || "{}")[a.id] || false;
+
+    return `
+    <details class="activity" data-id="${a.id}">
+        <summary>
+            <div class="activity-top">
+                <div>
+                    <div class="activity-type">${escapeHTML(a.type)}</div>
+                    <h4>${escapeHTML(a.title)}</h4>
+                    <div class="activity-short">${escapeHTML(a.short)}</div>
+                </div>
+                <div class="xp">+${a.xp} XP</div>
+            </div>
+        </summary>
+
+        <div class="activity-body">
+
+            <div class="block">
+                <div class="block-title">CONTEXTO · CASO DE INGENIERÍA</div>
+                <div class="case">${escapeHTML(a.context)}</div>
+            </div>
+
+            <div class="block">
+                <div class="block-title">DATOS DEL PROBLEMA</div>
+                <div class="data-grid">
+                    ${a.data.map(d=>`
+                        <div class="data">
+                            <strong>${escapeHTML(d[0])}</strong>
+                            ${escapeHTML(d[1])}
+                        </div>
+                    `).join("")}
+                </div>
+            </div>
+
+            <div class="block">
+                <div class="block-title">MISIÓN · ¿QUÉ DEBE HACER?</div>
+                <ol class="tasks">
+                    ${a.tasks.map(t=>`<li>${escapeHTML(t)}</li>`).join("")}
+                </ol>
+            </div>
+
+            <div class="block">
+                <div class="block-title">EVIDENCIA / PRODUCTO</div>
+                <div class="evidence">${escapeHTML(a.evidence)}</div>
+            </div>
+
+            <div class="block">
+                <div class="block-title">CRITERIOS DE LOGRO</div>
+                <div class="criteria">
+                    ${a.criteria.map(c=>`<span>${escapeHTML(c)}</span>`).join("")}
+                </div>
+            </div>
+
+            <div class="block">
+                <div class="block-title">ALINEACIÓN CON SEARS & ZEMANSKY</div>
+                <div class="sears">
+                    ${escapeHTML(a.sears)}
+                </div>
+            </div>
+
+            <div class="block">
+                <div class="badges">
+                    <span class="badge">Tiempo estimado: ${escapeHTML(a.time)}</span>
+                    <span class="badge">Recompensa: ${a.xp} XP</span>
+                    <span class="badge">Semana ${week.week}</span>
+                </div>
+            </div>
+
+            <div class="complete">
+                <label>
+                    <input
+                        type="checkbox"
+                        ${completed ? "checked":""}
+                        onchange="toggleActivity('${a.id}',this.checked)"
+                    >
+                    Marcar misión como completada
+                </label>
+            </div>
+
+        </div>
+    </details>
+    `;
+}
+
+
+function newsHTML(n){
+
+    const id=`news-${n.week}`;
+
+    const completed =
+        JSON.parse(localStorage.getItem("genesisPhysicsProgress") || "{}")[id] || false;
+
+    return `
+    <details class="activity news">
+        <summary>
+            <div class="activity-top">
+                <div>
+                    <div class="activity-type">GENESIS NEWS · SEMANA ${n.week}</div>
+                    <h4>${escapeHTML(n.title)}</h4>
+                    <div class="activity-short">
+                        Una noticia para conectar la Física I con la tecnología y la industria.
+                    </div>
+                </div>
+                <div class="xp">+70 XP</div>
+            </div>
+        </summary>
+
+        <div class="activity-body">
+
+            <div class="block">
+                <div class="block-title">BÚSQUEDA DE LA NOTICIA</div>
+                <div class="newsbox">
+                    ${escapeHTML(n.prompt)}
+                    <br><br>
+                    <strong>Fuentes recomendadas:</strong>
+                    ${escapeHTML(n.sources)}
+                </div>
+            </div>
+
+            <div class="block">
+                <div class="block-title">DINÁMICA DE ANÁLISIS</div>
+                <ol class="tasks">
+                    ${n.tasks.map(t=>`<li>${escapeHTML(t)}</li>`).join("")}
+                </ol>
+            </div>
+
+            <div class="block">
+                <div class="block-title">PRODUCTO DE LA SEMANA</div>
+                <div class="evidence">
+                    Diseñe una <strong>infografía científica de una página</strong>
+                    que presente la noticia, fuente, fecha, concepto físico,
+                    dato cuantitativo, aplicación industrial y relación con
+                    los contenidos de la semana.
+                    <br><br>
+                    <strong>Comentario colaborativo:</strong>
+                    el grupo deberá elaborar un comentario conjunto de
+                    aproximadamente 80–100 palabras sobre por qué el fenómeno
+                    físico resulta relevante para la Ingeniería Industrial.
+                </div>
+            </div>
+
+            <div class="block">
+                <div class="block-title">CRITERIOS</div>
+                <div class="criteria">
+                    <span>Fuente verificable</span>
+                    <span>Concepto físico correcto</span>
+                    <span>Dato cuantitativo</span>
+                    <span>Aplicación industrial</span>
+                    <span>Infografía clara</span>
+                    <span>Comentario colaborativo</span>
+                </div>
+            </div>
+
+            <div class="complete">
+                <label>
+                    <input
+                        type="checkbox"
+                        ${completed ? "checked":""}
+                        onchange="toggleActivity('${id}',this.checked)"
+                    >
+                    Marcar Genesis News como completada
+                </label>
+            </div>
+
+        </div>
+    </details>
+    `;
+}
+
+
+function labHTML(week){
+
+    return `
+    <div class="lab">
+        <strong>🔬 LABORATORIO DE LA SEMANA ${week.week}</strong>
+        <p>
+            El laboratorio de esta semana está subido en el entorno de la universidad.
+        </p>
+        <p>
+            Revise las instrucciones, materiales, procedimiento y criterios
+            directamente en el entorno institucional antes de iniciar la práctica.
+        </p>
+    </div>
+    `;
+}
+
+
+function renderWeeks(){
+
+    const container=document.getElementById("weeks");
+    const search=document.getElementById("search").value.toLowerCase();
+    const filter=document.getElementById("weekFilter").value;
+
+    container.innerHTML="";
+
+    weeks.forEach(w=>{
+
+        if(filter!=="all" && Number(filter)!==w.week) return;
+
+        const searchable=(
+            w.title+" "+
+            w.contents.join(" ")+
+            w.activities.map(a=>a.title+" "+a.context+" "+a.short).join(" ")
+        ).toLowerCase();
+
+        if(search && !searchable.includes(search)) return;
+
+        const progressData=
+            JSON.parse(localStorage.getItem("genesisPhysicsProgress") || "{}");
+
+        const total=w.activities.length+1;
+        let done=w.activities.filter(a=>progressData[a.id]).length;
+
+        if(progressData[`news-${w.week}`]) done++;
+
+        const percentage=Math.round(done/total*100);
+
+        container.innerHTML+=`
+
+        <section class="week">
+
+            <div class="week-header">
+
+                <div class="week-title">
+
+                    <div class="week-number">
+                        ${String(w.week).padStart(2,"0")}
+                    </div>
+
+                    <div>
+                        <h3>SEMANA ${w.week} · ${escapeHTML(w.title)}</h3>
+                        <p>
+                            ${w.week===15
+                            ?"Integración, exposición y repaso final."
+                            :"Dinámicas de Física aplicada a Ingeniería Industrial."}
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="week-progress">
+                    <span>${done}/${total} misiones</span>
+                    <div class="progress">
+                        <div style="width:${percentage}%"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="contents">
+                ${w.contents.map(c=>`
+                    <span class="content-tag">${escapeHTML(c)}</span>
+                `).join("")}
+            </div>
+
+            <div class="activities">
+
+                ${w.activities.map(a=>activityHTML(a,w)).join("")}
+
+                ${news.find(n=>n.week===w.week)
+                    ?newsHTML(news.find(n=>n.week===w.week))
+                    :""
+                }
+
+                ${w.lab ? labHTML(w) : ""}
+
+            </div>
+
+        </section>
+
+        `;
+    });
+
+    updateDashboard();
+}
+
+
+/* ============================================================
+   PROGRESO
+============================================================ */
+
+function toggleActivity(id, checked){
+
+    const progress=
+        JSON.parse(localStorage.getItem("genesisPhysicsProgress") || "{}");
+
+    progress[id]=checked;
+
+    localStorage.setItem(
+        "genesisPhysicsProgress",
+        JSON.stringify(progress)
+    );
+
+    renderWeeks();
+}
+
+
+function updateDashboard(){
+
+    const progress=
+        JSON.parse(localStorage.getItem("genesisPhysicsProgress") || "{}");
+
+    let total=0;
+    let completed=0;
+    let xp=0;
+
+    weeks.forEach(w=>{
+
+        w.activities.forEach(a=>{
+
+            total++;
+
+            if(progress[a.id]){
+                completed++;
+                xp+=a.xp;
+            }
+
+        });
+
+        total++;
+
+        if(progress[`news-${w.week}`]){
+            completed++;
+            xp+=70;
+        }
+
+    });
+
+    const percent=total
+        ?Math.round(completed/total*100)
+        :0;
+
+    document.getElementById("progressText").textContent=
+        percent+"%";
+
+    document.getElementById("progressBar").style.width=
+        percent+"%";
+
+    document.getElementById("completedText").textContent=
+        `${completed}/${total}`;
+
+    document.getElementById("xpText").textContent=
+        `${xp} XP`;
+}
+
+
+/* ============================================================
+   IDENTIFICACIÓN
+============================================================ */
+
+function saveStudent(){
+
+    const name=document.getElementById("studentName").value.trim();
+
+    if(!name){
+        alert("Escriba su nombre completo antes de guardar.");
+        return;
+    }
+
+    localStorage.setItem("genesisPhysicsStudent",name);
+
+    alert("Identificación guardada correctamente.");
+}
+
+
+function loadStudent(){
+
+    const name=
+        localStorage.getItem("genesisPhysicsStudent");
+
+    if(name){
+        document.getElementById("studentName").value=name;
+    }
+}
+
+
+/* ============================================================
+   EXPANDIR / CERRAR
+============================================================ */
+
+function expandAll(){
+
+    document.querySelectorAll(".activity").forEach(el=>{
+        el.open=true;
+    });
+
+}
+
+function collapseAll(){
+
+    document.querySelectorAll(".activity").forEach(el=>{
+        el.open=false;
+    });
+
+}
+
+
+/* ============================================================
+   INICIO
+============================================================ */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    loadStudent();
+    renderWeeks();
+
+});
+
+</script>
+
+</body>
+</html>
